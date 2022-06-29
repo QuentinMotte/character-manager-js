@@ -1,0 +1,45 @@
+.characters-cards {
+    .app {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 20px;
+        align-items: stretch;
+        margin: 30px;
+        @media screen and (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            align-items: center;
+            text-align: center;
+            justify-content: space-around;
+            min-height: 330px;
+            border-radius: 5px;
+            width: 250px;
+            background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+            button {
+                padding: 10px 10px;
+                border-radius: 3px;
+                border: 1px solid;
+                cursor: pointer;
+                font-weight: 500;
+                transition: 0.2s;
+                background: transparent;
+                &:hover {
+                    transform: scale(1.1);
+                    background: rgba(128, 128, 128, 0.489);
+                }
+            }
+            .id {
+                font-size: 0.1rem;
+                visibility: hidden;
+            }
+        }
+    }
+}

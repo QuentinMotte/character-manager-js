@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite App</title>
+    </head>
+    <body>
+        <header>
+            <h1>Character manager</h1>
+            <div class="btn-characters">
+                <button id="create">create</button>
+                <input
+                    type="search"
+                    id="search"
+                    autocomplete="off"
+                    placeholder="search"
+                />
+            </div>
+        </header>
+        <body>
+            <main>
+                <section class="characters-cards">
+                    <div class="app"></div>
+                </section>
+                <section class="form-create">
+                    <form action="" id="form">
+                        <input type="file" id="fileId" required />
+
+                        <input
+                            type="text"
+                            placeholder="name"
+                            id="name"
+                            autocomplete="off"
+                            required
+                        />
+                        <input
+                            type="textarea"
+                            placeholder="Enter a short description"
+                            autocomplete="off"
+                            id="shortDescription"
+                            required
+                        />
+                        <textarea
+                            name=""
+                            id="description"
+                            cols="30"
+                            rows="10"
+                        ></textarea>
+
+                        <input type="submit" id="submit" />
+                    </form>
+                    <button id="return">Return</button>
+                    <div class="new-card"></div>
+                </section>
+                <section class="update">
+                    <div class="container">
+                        <div class="update-card"></div>
+                        <form action="" id="formUpdate">
+                            <input
+                                type="text"
+                                placeholder="name"
+                                id="nameUpdate"
+                                autocomplete="off"
+                                required
+                            />
+                            <input
+                                type="textarea"
+                                placeholder="Enter a short description"
+                                autocomplete="off"
+                                id="shortDescriptionUpdate"
+                                required
+                            />
+                            <textarea name="" id="descriptionUpdate"></textarea>
+                        </form>
+                    </div>
+                    <div class="btn-update-container">
+                        <button id="return-card">Return</button>
+                        <button id="update-card">Update</button>
+                        <button id="delete-card">Delete</button>
+                        <button id="validate">Validate</button>
+                    </div>
+                </section>
+            </main>
+        </body>
+
+        <script type="module" src="./main.js"></script>
+    </body>
+</html>
