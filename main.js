@@ -1,17 +1,17 @@
 import "./index.scss";
 import axios from "axios";
 
-//GET
+//------------------------------ GET -------------------------
 const app = document.querySelector(".app");
 const inputSearch = document.getElementById("search");
-//POST
+//----------------------------- POST -------------------------
 const form = document.getElementById("form");
 const inputName = document.getElementById("name");
 const inputShortDescription = document.getElementById("shortDescription");
 const inputDescription = document.getElementById("description");
 const submit = document.getElementById("submit");
 const newCardDisplay = document.querySelector(".new-card");
-//UPDATE
+//--------------------------- UPDATE ------------------------
 let dataArray = [];
 const cards = document.querySelectorAll(".card");
 const updateCardContainer = document.querySelector(".update-card");
@@ -21,22 +21,22 @@ const btnUpdateContainer = document.querySelector(".btn-update-container");
 const validateBtn = document.getElementById("validate");
 const formUpdate = document.getElementById("formUpdate");
 console.log(validateBtn);
-//DISPLAY - UNDISPLAY
+//--------------------- DISPLAY - UNDISPLAY ----------------
 const formSection = document.querySelector(".form-create");
 const cardsSection = document.querySelector(".characters-cards");
 const btnCreate = document.getElementById("create");
 const btnReturn = document.getElementById("return");
 const btnReturnCard = document.getElementById("return-card");
 console.log(btnReturnCard);
-//Delete
+//--------------------------- Delete ------------------------
 const btnDeleteCard = document.getElementById("delete-card");
 console.log(btnDeleteCard);
 //
-//IMAGE
-const file = document.querySelector("input[type=file]");
+//--------------------------- IMAGE--------------------------
+const file = document.querySelector("#fileId");
 var base64String = "";
 function Uploaded() {
-    var file = document.querySelector("input[type=file]")["files"][0];
+    var file = document.querySelector("#fileId")["files"][0];
     var reader = new FileReader();
     reader.onload = function () {
         base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
@@ -49,7 +49,9 @@ file.addEventListener("change", () => {
     Uploaded();
 });
 console.log(dataArray);
-//GET;
+// OTHER
+const spinner = document.querySelector(".spinner");
+//GET -------------------- FOR DISPLAY ALL CHARACTER ----------------------
 let fetchData = () => {
     axios
         .get(`https://character-database.becode.xyz/characters`)
@@ -63,18 +65,20 @@ let fetchData = () => {
         <p class="id">${item.id}</p>
         <h2>${item.name}</h2>
         <p>${item.shortDescription}</p>
-        <button id="btnMore">see more</button>
+        <button class="btnMore">+</button>
         </div>
         `;
             })
         )
+        //------------------- FOR SEE ONE CARD WITH DESCRIPTION ------------------
         .then(function () {
-            const btnForSeeMore = document.querySelectorAll("#btnMore");
+            const btnForSeeMore = document.querySelectorAll(".btnMore");
             console.log(btnForSeeMore);
             btnForSeeMore.forEach((el) => {
-                el.addEventListener("click", () => {
+                el.addEventListener("click", (e) => {
                     let idKey = el.parentNode.childNodes[3].textContent;
                     let nameForUpdate = el.parentNode.childNodes[5].textContent;
+
                     // console.log(nameForUpdate);
                     console.log(idKey);
                     cardsSection.style.display = "none";
@@ -84,9 +88,8 @@ let fetchData = () => {
                         .get(
                             `https://character-database.becode.xyz/characters?name=${nameForUpdate}`
                         )
-                        .then(
-                            (res) =>
-                                (updateCardContainer.innerHTML = `
+                        .then((res) => {
+                            updateCardContainer.innerHTML = `
                     <div class = "cardUpdate">
                     <img src=data:image/gif;base64,${res.data[0].image}>
                     
@@ -94,59 +97,89 @@ let fetchData = () => {
                     <h3 class="description-one">${res.data[0].shortDescription}</h3>
                     <p class="description-two">${res.data[0].description}</h3>
                     </div>
-                    `)
-                        )
-                        .then(
-                            axios
-                                .get(
-                                    `https://character-database.becode.xyz/characters?name=${nameForUpdate}`
-                                )
-                                .then((res) => {
-                                    const fileIdUpdate =
-                                        document.getElementById("fileIdUpdate");
-                                    const updateName =
-                                        document.getElementById("nameUpdate");
-                                    const shortDescriptionUpdate =
-                                        document.getElementById(
-                                            "shortDescriptionUpdate"
-                                        );
-                                    const descriptionUpdate =
-                                        document.getElementById(
-                                            "descriptionUpdate"
-                                        );
-                                    let img = res.data[0].image;
-                                    updateName.value = res.data[0].name;
-                                    shortDescriptionUpdate.value =
-                                        res.data[0].shortDescription;
-                                    descriptionUpdate.value =
-                                        res.data[0].description;
-                                    async function updatePostRequest() {
-                                        params = {
-                                            image: `${img}`,
-                                            name: `${updateName.value}`,
-                                            shortDescription: `${shortDescriptionUpdate.value}`,
-                                            description: `${descriptionUpdate.value}`,
-                                        };
+                    `;
+                            const cardUpdateDisplay =
+                                document.querySelector(".cardUpdate");
+                            console.log(cardUpdateDisplay);
+                            btnReturnCard.addEventListener("click", () => {
+                                cardUpdateDisplay.remove();
+                                updateCardContainer.innerHTML = [];
+                            });
 
-                                        let res = await axios.put(
-                                            `https://character-database.becode.xyz/characters/${idKey}`,
-                                            params
-                                        );
-                                    }
-                                    validateBtn.addEventListener(
-                                        "click",
-                                        () => {
-                                            console.log("yes");
-                                            updatePostRequest();
-                                            formUpdate.style.display = "none";
-                                        }
-                                    );
-                                })
-                        );
+                            //-------------- FOR UPDATE CARDS ----------------
+                            const file =
+                                document.querySelector("#fileIdUpdate");
+                            var base64String = "";
+                            base64String = res.data[0].image;
+                            function Uploaded() {
+                                var file =
+                                    document.querySelector("#fileIdUpdate")[
+                                        "files"
+                                    ][0];
+                                var reader = new FileReader();
+                                reader.onload = function () {
+                                    base64String = reader.result
+                                        .replace("data:", "")
+                                        .replace(/^.+,/, "");
+                                    imageBase64Stringsep = base64String;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+
+                            file.addEventListener("change", () => {
+                                Uploaded();
+                            });
+                            const updateName =
+                                document.getElementById("nameUpdate");
+                            const shortDescriptionUpdate =
+                                document.getElementById(
+                                    "shortDescriptionUpdate"
+                                );
+                            const descriptionUpdate =
+                                document.getElementById("descriptionUpdate");
+                            let img = res.data[0].image;
+                            updateName.value = res.data[0].name;
+                            shortDescriptionUpdate.value =
+                                res.data[0].shortDescription;
+                            descriptionUpdate.value = res.data[0].description;
+                            async function updatePostRequest() {
+                                params = {
+                                    image: `${base64String}`,
+                                    name: `${updateName.value}`,
+                                    shortDescription: `${shortDescriptionUpdate.value}`,
+                                    description: `${descriptionUpdate.value}`,
+                                };
+
+                                let res = await axios.put(
+                                    `https://character-database.becode.xyz/characters/${idKey}`,
+                                    params
+                                );
+                            }
+                            validateBtn.addEventListener("click", () => {
+                                if (
+                                    confirm(
+                                        "Do you really want to utpdate this ?"
+                                    )
+                                ) {
+                                    updatePostRequest();
+                                    // window.location.reload();
+                                    updateCardContainer.style.display = "none";
+                                    btnUpdateContainer.style.display = "none";
+                                    spinner.style.display = "flex";
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                        spinner.style.display = "none";
+                                    }, 1000);
+                                }
+                                formUpdate.style.display = "none";
+                            });
+                        });
                     console.log(nameForUpdate);
                     btnUpdateCard.addEventListener("click", () => {
                         formUpdate.style.display = "flex";
+                        btnUpdateCard.style.display = "none";
                     });
+                    //------------------ FOR DELETE CARD --------------------
                     async function doDeleteRequest() {
                         let res = await axios.delete(
                             `https://character-database.becode.xyz/characters/${idKey}`
@@ -158,7 +191,13 @@ let fetchData = () => {
                     btnDeleteCard.addEventListener("click", () => {
                         if (confirm("Do you really want to delete this ?")) {
                             doDeleteRequest();
-                            window.location.reload();
+                            spinner.style.display = "flex";
+                            updateCardContainer.style.display = "none";
+                            btnUpdateContainer.style.display = "none";
+                            setTimeout(() => {
+                                window.location.reload();
+                                spinner.style.display = "none";
+                            }, 1000);
                         }
                     });
                 });
@@ -166,6 +205,8 @@ let fetchData = () => {
         });
 };
 fetchData();
+
+//------------------------- SEARCH A CHARACTER -------------------------
 
 inputSearch.addEventListener("input", () => {
     axios
@@ -188,9 +229,8 @@ inputSearch.addEventListener("input", () => {
     }
 });
 
-//POST
+//POST ---------------- CREATE A CHARACTER -------------------
 let params;
-
 async function makePostRequest() {
     params = {
         image: `${base64String}`,
@@ -221,10 +261,12 @@ async function makePostRequest() {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     makePostRequest();
-
-    // console.log(inputName.value);
-    // console.log(inputShortDescription.value);
-    // console.log(inputDescription.value);
+    spinner.style.display = "flex";
+    formSection.style.display = "none";
+    setTimeout(() => {
+        window.location.reload();
+        spinner.style.display = "none";
+    }, 1000);
 });
 //
 //DELETE
@@ -232,22 +274,32 @@ btnDeleteCard.addEventListener("click", () => {
     console.log();
 });
 
-//DISPLAY OR UNDISPLAY
+//-------------------------- DISPLAY OR UNDISPLAY ------------------------------
 
 btnCreate.addEventListener("click", () => {
     cardsSection.style.display = "none";
-    formSection.style.display = "block";
+    formSection.style.display = "flex";
+    updateCardContainer.style.display = "none";
+    btnUpdateContainer.style.display = "none";
+    formUpdate.style.display = "none";
 });
 btnReturn.addEventListener("click", () => {
     formSection.style.display = "none";
     cardsSection.style.display = "grid";
     formUpdate.style.display = "none";
+    btnUpdateCard.style.display = "flex";
 });
-const cardUpdateDisplay = document.querySelector(".cardUpdate");
+
 btnReturnCard.addEventListener("click", () => {
-    // window.location.reload();
     updateCardContainer.style.display = "none";
-    cardsSection.style.display = "grid";
+    cardsSection.style.display = "none";
     console.log("yes");
     btnUpdateContainer.style.display = "none";
+    btnUpdateCard.style.display = "flex";
+    formUpdate.style.display = "none";
+    spinner.style.display = "flex";
+    setTimeout(() => {
+        window.location.reload();
+        spinner.style.display = "none";
+    }, 1000);
 });

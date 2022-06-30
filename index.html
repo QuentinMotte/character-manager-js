@@ -4,7 +4,14 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vite App</title>
+        <title>Character manager</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
     </head>
     <body>
         <header>
@@ -20,12 +27,17 @@
             </div>
         </header>
         <body>
+            <div class="spinner"><i class="fa-solid fa-spinner"></i></div>
             <main>
                 <section class="characters-cards">
                     <div class="app"></div>
                 </section>
                 <section class="form-create">
                     <form action="" id="form">
+                        <label for="fileId" class="file-style"
+                            >Click here <br />
+                            for add image</label
+                        >
                         <input type="file" id="fileId" required />
 
                         <input
@@ -49,7 +61,7 @@
                             rows="10"
                         ></textarea>
 
-                        <input type="submit" id="submit" />
+                        <input type="submit" id="submit" placeholder="Submit" />
                     </form>
                     <button id="return">Return</button>
                     <div class="new-card"></div>
@@ -58,6 +70,10 @@
                     <div class="container">
                         <div class="update-card"></div>
                         <form action="" id="formUpdate">
+                            <label for="fileIdUpdate" class="file-style"
+                                >Change image</label
+                            >
+                            <input type="file" id="fileIdUpdate" required />
                             <input
                                 type="text"
                                 placeholder="name"
@@ -78,8 +94,8 @@
                     <div class="btn-update-container">
                         <button id="return-card">Return</button>
                         <button id="update-card">Update</button>
-                        <button id="delete-card">Delete</button>
                         <button id="validate">Validate</button>
+                        <button id="delete-card">Delete</button>
                     </div>
                 </section>
             </main>

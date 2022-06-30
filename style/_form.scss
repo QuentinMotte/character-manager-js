@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 50px 0;
     form {
         margin: 0 auto;
         display: flex;
@@ -14,17 +15,41 @@
             padding: 10px;
             min-width: 350px;
             border-radius: 5px;
-            input[type="file"] {
-                padding: 20px;
-            }
+            cursor: pointer;
         }
+
         textarea {
             min-width: 350px;
             border-radius: 5px;
+            margin: 10px 0;
+        }
+        .file-style {
+            background: rgb(253, 77, 77);
+            border-radius: 50%;
+            padding: 60px 25px;
+            text-align: center;
+            cursor: pointer;
+            transform: scale(0.8);
+            &:hover {
+                background: rgb(242, 118, 118);
+            }
         }
     }
     button {
         display: flex;
         margin: 0 auto;
+        cursor: pointer;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: 0.2s;
+        &:hover {
+            background: rgb(253, 77, 77);
+            color: white;
+            transform: scale(1.1);
+            border: 1px solid white;
+        }
     }
 }

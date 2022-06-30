@@ -24,4 +24,21 @@ body {
     img {
         border-radius: 50%;
     }
+    .spinner {
+        position: absolute;
+        left: 50%;
+        top: 25%;
+        display: none;
+        i {
+            z-index: 1000;
+            transform: scale(8);
+            animation: spinner infinite 3s linear;
+            color: white;
+        }
+        @keyframes spinner {
+            100% {
+                transform: scale(8) rotate(360deg);
+            }
+        }
+    }
 }

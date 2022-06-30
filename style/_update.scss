@@ -7,7 +7,7 @@
         display: flex;
         flex-direction: row;
         gap: 100px;
-        justify-content: space-evenly;
+        justify-content: center;
 
         .cardUpdate {
             margin-right: auto;
@@ -45,6 +45,18 @@
                 min-height: 270px;
                 border-radius: 5px;
             }
+            .file-style {
+                background: rgb(253, 77, 77);
+                border-radius: 50%;
+                padding: 60px 5px;
+                text-align: center;
+                width: 150px;
+                cursor: pointer;
+                transform: scale(0.8);
+                &:hover {
+                    background: rgb(242, 118, 118);
+                }
+            }
         }
     }
     .btn-update-container {
@@ -63,6 +75,9 @@
 
             &:hover {
                 transform: scale(1.1);
+                background-color: rgb(253, 77, 77);
+                color: white;
+                border: 1px solid white;
             }
         }
     }
